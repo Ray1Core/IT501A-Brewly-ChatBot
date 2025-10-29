@@ -4,120 +4,91 @@ It provides interactive recipe assistance for drinks such as frappes, milkshakes
 
 🧠 Overview
 AlienBot acts as a coffee shop recipe expert that users can chat with.
-It uses HTML, CSS, and JavaScript to create a responsive chat interface and handles AI responses dynamically.
-
-The chatbot interacts with a proxy-based OpenAI endpoint (https://alcuino-chatbot.azurewebsites.net/api/OpenAIProxy) to ensure that the actual API key remains hidden from users.
+It uses HTML, CSS, and JavaScript to create a responsive chat interface and handles AI responses dynamically through the OpenAI API proxy.
 
 ⚙️ Main Features
-💬 Real-time chat with a coffee recipe expert (AI-powered)
-🌗 Light/Dark mode switch (stored in localStorage)
-⚡ Responsive layout using Bootstrap 5
-🧾 Dedicated Settings page with:
-Theme toggle
-Version and model info
-“Clear Chat” feature
-🧠 Uses OpenAI GPT model for generating recipes
+💬 Real-time AI chat for drink recipes and brewing techniques
+🌗 Light/Dark mode switch with persistent storage
+🧾 Settings page with app info and chat clearing
+📱 Responsive Bootstrap 5 layout
 🔒 Secure configuration (API key excluded via .gitignore)
-🧩 Folder & File Structure
+🧩 Folder Structure
 Chatbot/
-├── index.html        # User interface layout and HTML structure
-├── style.css         # Design, color themes, and UI styling
-├── script.js         # Chat logic and API handling
-├── config.js         # API key storage (local use only)
-└── .gitignore        # Protects sensitive files from upload
+├── index.html       # Main layout and UI
+├── style.css        # Visual styling and color themes
+├── script.js        # Core chatbot logic
+├── config.js        # Local API key (ignored by Git)
+└── .gitignore       # Protects sensitive files
 
-🖥️ Interface Overview
-1. Sidebar
-Displays menu items: Chat and Settings
-Includes Dark Mode toggle switch
-Shows user profile area at the bottom
-2. Main Chat Area
-Displays conversation between the user and AlienBot
-Automatically scrolls to the latest message
-Uses dynamic message elements (<div class="message user/bot">)
-3. Settings Page
-Toggle for appearance (Dark/Light)
-Shows app version, model used, and “Clear Chat” button
-💻 Code Documentation
-1. Configuration (config.js)
-let _config = {
-  openAI_api: "https://alcuino-chatbot.azurewebsites.net/api/OpenAIProxy",
-  openAI_model: "gpt-4o-mini",
-  ai_instruction: "You are a friendly coffee shop barista expert...",
-  response_id: "",
-  api_key: window.OPENAI_KEY || ""
-};
+⚙️ Properties (from _config)
+Property                     	Type	                 Description
+openAI_api	                string                  	Proxy endpoint for OpenAI API (secured)
+openAI_model	              string                  	Model used (e.g. gpt-4o-mini)
+ai_instruction	            string	                  System instruction defining the bot’s tone and topic
+response_id	string	        Tracks                    conversation history
+api_key	string	            API key                   (local only; excluded from repo)
 
-Properties
-Property	Type	Description
-openAI_api	string	The proxy endpoint that forwards requests to OpenAI.
-openAI_model	string	Specifies the model version used (e.g., gpt-4o-mini).
-ai_instruction	string	The system prompt that defines the chatbot’s tone and behavior.
-response_id	string	Keeps track of the current conversation session.
-api_key	string	The local API key used for authentication (hidden via .gitignore).
-2. Core Methods
-addUserMessage(text)
-Purpose: Displays the user’s input in the chat body.
-Parameters: text (string) — the user’s typed message.
-Usage Example:
-addUserMessage("Show me how to make a caramel macchiato");
-
+🧠 Methods (Core Functions)
 addBotMessage(htmlContent)
-Purpose: Renders the AI’s response as a styled message bubble.
-Parameters: htmlContent (string) — formatted text returned by OpenAI.
-Usage Example:
-addBotMessage("Sure! Here’s how to make it...");
-
+Appends an AI-generated message to the chat area using styled HTML.
+addUserMessage(text)
+Displays the user’s input in the chat body with custom bubble styling.
 sendOpenAIRequest(text)
-Purpose: Handles communication with the OpenAI proxy API.
-Parameters: text (string) — message from the user.
-Returns: AI-generated text response.
-Usage Example:
-await sendOpenAIRequest("How to make a mocha latte?");
-
+Sends the user input to the OpenAI API proxy and retrieves the AI response.
 sendMessage()
-Purpose: The main message flow — captures user input, sends it to OpenAI, and displays both sides of the conversation.
-Usage: Triggered when pressing Enter or clicking the Send button.
+
+Main controller that:
+Gets the user input
+Displays it
+Calls sendOpenAIRequest()
+Displays the AI response
 setDarkMode(enabled)
-Purpose: Switches between dark and light themes.
-Parameters: enabled (boolean) — true for dark mode, false for light mode.
-Usage Example:
-setDarkMode(true);
 
-🧰 Usage Flow
+Toggles dark/light themes and stores preference in localStorage.
+clearChatBtn (Event)
+Resets the chat interface and restarts with the greeting message.
 
-User Input
-The user types a message in the input box and presses Enter.
-
-Display User Message
-The message appears in the chat window using addUserMessage().
-
-Send Request
-sendOpenAIRequest() formats and sends the input to the proxy API.
-
-Receive AI Response
-The API sends back a message, which is displayed using addBotMessage().
-
-Persistent Theme
-setDarkMode() ensures the user’s theme choice is saved via localStorage.
-
-🧾 .gitignore
-Ensures sensitive files and dependencies aren’t uploaded:
-config.js
-node_modules/
-🚀 Setup Instructions
-Clone the Repository
+🧩 Usage Flow
+User opens index.html
+Chat interface loads with greeting message
+User types a question (e.g., “How do I make a caramel frappe?”)
+Bot replies with:
+Ingredients list
+Step-by-step brewing instructions
+Optional serving tips
+💻 Setup & Installation
+Clone the repository
 git clone https://github.com/Ray1Core/IT501A-Brewly-ChatBot.git
 
-Add Your API Key
-Create a file named config.js inside the Chatbot/ folder:
-window.OPENAI_KEY = "your-actual-OpenAI-API-key";
+Create config.js
+window.OPENAI_KEY = "your-actual-key-here";
 
-Run Locally
-Open index.html directly in your browser — no server setup needed.
+Run locally
+Just open index.html in a browser — no server setup required.
+🎨 Interface Overview
+Sidebar
+Chat / Settings menu
+Dark Mode switch
+User profile section
+Chat Window
+Dynamic message bubbles
+Scrollable chat body
+Input and send button
+Settings
+Toggle dark mode
+Clear chat button
+App version and model info
+🧾 .gitignore
+config.js
+node_modules/
 
 ☕ Credits
 Developed by Ray1Core
 For IT501A Project – Interactive Coffee Chatbot
-Powered by OpenAI GPT-4o-mini through a secure proxy.
+Powered by OpenAI GPT-4o-mini via secure proxy.
+
 “Brewing creativity, one chat at a time.” 👽☕
+📚 Appendix – About Markdown
+Markdown was introduced in 2004 to simplify HTML for documentation.
+Its widespread adoption came after GitHub (2008) made .md the default format for project READMEs.
+Today, Markdown powers documentation for almost all open-source projects.
