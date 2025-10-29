@@ -13,20 +13,22 @@ It uses HTML, CSS, and JavaScript to create a responsive chat interface and hand
 📱 Responsive Bootstrap 5 layout
 🔒 Secure configuration (API key excluded via .gitignore)
 🧩 Folder Structure
-Chatbot/
-├── index.html       # Main layout and UI
-├── style.css        # Visual styling and color themes
-├── script.js        # Core chatbot logic
-├── config.js        # Local API key (ignored by Git)
-└── .gitignore       # Protects sensitive files
+🧩 Folder & File Structure
+
+The Chatbot project is organized into a simple and clear structure for easy navigation and maintenance.
+index.html — This is the main entry point of the chatbot. It defines the page layout, chat interface, and structural elements that users interact with in the browser.
+style.css — Contains all visual design and color theme settings. It handles both light and dark modes, typography, and overall interface styling to ensure a smooth and modern appearance.
+script.js — The core logic of the chatbot resides here. It manages user input, message display, and communication with the OpenAI API proxy, as well as chat animations and dynamic responses.
+config.js — Stores the local API key and essential configuration data for development use. This file is intentionally excluded from Git uploads to protect sensitive information.
+.gitignore — Ensures that private and unnecessary files, such as config.js and node_modules/, are not uploaded to the repository. This keeps the project clean and secure.
 
 ⚙️ Properties (from _config)
-Property                     	Type	                 Description
-openAI_api	                string                  	Proxy endpoint for OpenAI API (secured)
-openAI_model	              string                  	Model used (e.g. gpt-4o-mini)
-ai_instruction	            string	                  System instruction defining the bot’s tone and topic
-response_id	string	        Tracks                    conversation history
-api_key	string	            API key                   (local only; excluded from repo)
+The _config object stores all key settings that control how the chatbot connects and behaves. Each property plays a specific role in defining Brewly’s operation.
+openAI_api — This property holds the secure proxy endpoint that the chatbot uses to communicate with the OpenAI API. It ensures that the connection is handled safely without exposing any sensitive keys directly in the code.
+openAI_model — Specifies which AI model the chatbot will use. For example, it may use gpt-4o-mini to balance performance and cost while maintaining high-quality responses.
+ai_instruction — Defines the system’s guiding message that sets the chatbot’s tone, knowledge, and behavior. It determines how Brewly responds to user queries (e.g., focusing on coffee recipes and friendly conversation).
+response_id — Keeps track of the ongoing conversation by storing the response identifier. This helps maintain context between the user and the bot during multi-turn conversations.
+api_key — Stores the user’s API key locally to authenticate requests. This file is excluded from the repository via .gitignore to keep it private and secure.
 
 🧠 Methods (Core Functions)
 addBotMessage(htmlContent)
